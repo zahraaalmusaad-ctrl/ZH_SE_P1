@@ -3,143 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- I kept your CSS filename (CM2.css) — change if you prefer another name -->
     <link rel="stylesheet" href="CM2.css" />
     <script defer src="script.js"></script>
     <title>Memory Flash Cards Game</title>
   </head>
   <body>
-    <h2>Click any card to flip it! Your Goal is to match all the pairs</h2>
-    <div class="container">
-      <div id="dynamic-cards" class="game-container">
-        <div class="cards-container">
-          <!-- Card 1 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="1"
-              src="./Images/Carrot.png"
-              alt="Carrot"
-              class="card-image"
-            />
-          </div>
+    <h2>Click any card to flip it! Your goal is to match all the pairs</h2>
 
-          <!-- Card 2 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="2"
-              src="./Images/Cucumber.png"
-              alt="Cucumber"
-              class="card-image"
-            />
+    <div class="wrap">
+      <header>
+        <div class="controls">
+          <div class="info">
+            <div>Pairs: <strong id="pairs">12</strong></div>
+            <div>Moves: <strong id="moves">0</strong></div>
+            <div>Time: <strong id="timer">00:00</strong></div>
           </div>
+          <button id="restart">Restart</button>
+        </div>
+      </header>
 
-          <!-- Card 3 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img id="3" src="./Images/Corn.png" alt="Corn" class="card-image" />
-          </div>
+      <main>
+        <section id="board" class="board" aria-label="Memory board"></section>
 
-          <!-- Card 4 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="4"
-              src="./Images/Carrot.png"
-              alt="Carrot"
-              class="card-image"
-            />
-          </div>
-
-          <!-- Card 5 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="5"
-              src="./Images/Cucumber.png"
-              alt="Cucumber"
-              class="card-image"
-            />
-          </div>
-
-          <!-- Card 6 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="6"
-              src="./Images/Pumpkin.png"
-              alt="Pumpkin"
-              class="card-image"
-            />
-          </div>
-
-          <!-- Card 7 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img id="7" src="./Images/Corn.png" alt="Corn" class="card-image" />
-          </div>
-
-          <!-- Card 8 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" id="FG" alt="Card Back" />
-            <img
-              id="8"
-              src="./Images/Radish.png"
-              alt="Radish"
-              class="card-image"
-            />
-          </div>
-
-          <!-- Card 9 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="9"
-              src="./Images/Pumpkin.png"
-              alt="Pumpkin"
-              class="card-image"
-            />
-          </div>
-
-          <!-- Card 10 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="10"
-              src="./Images/Tomato.png"
-              alt="Tomato"
-              class="card-image"
-            />
-          </div>
-
-          <!-- Card 11 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="11"
-              src="./Images/Radish.png"
-              alt="Radish"
-              class="card-image"
-            />
-          </div>
-
-          <!-- Card 12 -->
-          <div class="card">
-            <img src="./Images/FruitFrame.png" class="FG" alt="Card Back" />
-            <img
-              id="12"
-              src="./Images/Tomato.png"
-              alt="Tomato"
-              class="card-image"
-            />
-          </div>
+        <div class="status">
+          <div>Matches: <strong id="matches">0</strong></div>
+          <div id="message">Find all matching pairs!</div>
         </div>
 
-        <div class="progress-container">
-          <div class="move-counter">Moves: 0</div>
-          <button id="restart" class="restart-button">Restart Game</button>
+        <div class="foot">
+          <div>Tip: click or press Enter / Space on a card to flip it.</div>
         </div>
-      </div>
+      </main>
     </div>
   </body>
 </html>
