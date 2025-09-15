@@ -144,3 +144,17 @@ button {
   justify-content: space-between;
   gap: 12px;
 }
+
+.foot {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(230, 238, 248, 0.7);
+  font-size: 13px;
+}
+
+.board.disabled {
+  pointer-events: none;
+  opacity: 0.95;
+}
