@@ -15,13 +15,27 @@ First, the user will see the main page, which contains the title of the game and
 
 ## Resources
  - [Canva website](https://www.Canva.com)
+ - [w3schools website](https://www.w3schools.com)
 
 
 ### Programming languages used
-```markdown
 
+```markdown
 1. HTML
 2. CSS
 3. JavaScript
-
 ```
+
+### Task Lists
+"Future Updates" section on our Project:
+
+```markdown
+- [ ] Another levels
+- [ ]
+- [x]
+- [x]
+```
+### The Game
+
+![images](Images\HomePage.png)
+![images](Images\GamePage.png)
