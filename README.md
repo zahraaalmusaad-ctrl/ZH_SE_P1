@@ -26,15 +26,7 @@ First, the user will see the main page, which contains the title of the game and
 3. JavaScript
 ```
 
-### Task Lists
-"Future Updates" section on our Project:
 
-```markdown
-- [ ] Another levels
-- [ ]
-- [x]
-- [x]
-```
 ### The Game
 
 ![images](Images\HomePage.png)
