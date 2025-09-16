@@ -13,6 +13,7 @@ const IMAGES = [
   "Images/Tomato.png",
 ]
 
+//Grab references to important elements on the page
 const board = document.getElementById("board")
 const movesEl = document.getElementById("moves")
 const pairsEl = document.getElementById("pairs")
@@ -21,17 +22,20 @@ const timerEl = document.getElementById("timer")
 const restartBtn = document.getElementById("restart")
 const messageEl = document.getElementById("message")
 
-let deck = []
-let firstCard = null
-let secondCard = null
-let matches = 0
-let moves = 0
-let seconds = 0
+//Game state variables
+let deck = [] //The array of card objects
+let firstCard = null //Store first clicked card
+let secondCard = null //Store second clicked card
+let matches = 0 //Numbers of pairs matches
+let moves = 0 //Numbers of moves made
+let seconds = 0 //Timer second
 let timer = null
-let locked = false
+let locked = false //Lock the board while checking matches
 
+//Shuffle function to randomize the cards
 const shuffle = (arr) => arr.sort(() => Math.random() - 0.5)
 
+//Start the timer (called on first flip)
 const startTimer = () => {
   if (timer) return
   timer = setInterval(() => {
@@ -42,11 +46,13 @@ const startTimer = () => {
   }, 1000)
 }
 
+//Stops and clear the timer
 const stopTimer = () => {
   clearInterval(timer)
   timer = null
 }
 
+//Creates a shuffled dick with pairs
 const makeDeck = () => {
   let cards = []
   IMAGES.forEach((img, i) => {
@@ -56,6 +62,7 @@ const makeDeck = () => {
   return shuffle(cards)
 }
 
+//Draws the cards on the board(DOM elements)
 const renderBoard = () => {
   board.innerHTML = ""
   deck.forEach((card, index) => {
@@ -69,12 +76,13 @@ const renderBoard = () => {
         <div class="card-face card-back"><img src="${card.img}" alt=""></div>
       </div>
     `
-
+    //Add click event to flip the card
     cardEl.addEventListener("click", () => flipCard(cardEl, card))
     board.appendChild(cardEl)
   })
 }
 
+//Handles flipping cards and checking matches
 const flipCard = (el, card) => {
   if (locked || el.classList.contains("is-flipped")) return
 
@@ -91,6 +99,7 @@ const flipCard = (el, card) => {
   movesEl.textContent = moves
   locked = true
 
+  //Check if cards match
   if (firstCard.card.pair === secondCard.card.pair) {
     matches++
     matchesEl.textContent = matches
@@ -105,17 +114,20 @@ const flipCard = (el, card) => {
   }
 }
 
+//Resets the selected cards and unlock the board
 const resetTurn = () => {
   ;[firstCard, secondCard] = [null, null]
   locked = false
 }
 
+//Called when all matches are found
 const winGame = () => {
   stopTimer()
   messageEl.textContent = `You won! 🎉 Moves: ${moves}, Time: ${timerEl.textContent}`
   board.classList.add("disabled")
 }
 
+//Resets the game state
 const resetGame = () => {
   stopTimer()
   seconds = 0
@@ -142,9 +154,11 @@ const showCardsBriefly = () => {
   setTimeout(() => {
     allCards.forEach((card) => card.classList.remove("is-flipped"))
     locked = false // Allow user to play after preview
-    messageEl.textContent = "Now start matching pairs!"
   }, 5000)
 }
 
+//Restart button listener
 restartBtn.addEventListener("click", resetGame)
+
+//Start the game when page loads
 resetGame()
