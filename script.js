@@ -129,6 +129,21 @@ const resetGame = () => {
 
   deck = makeDeck()
   renderBoard()
+  showCardsBriefly()
+}
+
+// This function flips all cards face up for 5 seconds at the start of the game
+const showCardsBriefly = () => {
+  const allCards = document.querySelectorAll(".card")
+  allCards.forEach((card) => card.classList.add("is-flipped"))
+
+  locked = true // Prevent clicking while previewing
+
+  setTimeout(() => {
+    allCards.forEach((card) => card.classList.remove("is-flipped"))
+    locked = false // Allow user to play after preview
+    messageEl.textContent = "Now start matching pairs!"
+  }, 5000)
 }
 
 restartBtn.addEventListener("click", resetGame)
