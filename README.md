@@ -10,7 +10,7 @@ Memory Flash Cards is a simple matching game where players flip over two cards a
 
 
 ## How to Get Started
-First, the user will see the main page, which contains the title of the game and a greeting sentence that says 'Welcome to the game.'There is also a button the user can click on that links to the next page where the game starts. If the user finishes a massage, it will show that they have finished the game and win.
+First, the user will see the main page, which contains the title of the game and a greeting sentence that says 'Welcome to the game.'There is also a button the user can click on that links to the next page where the game starts. If the user finishes a massage, it will show that they have finished the game and win. Find the game [here](https://memoryflashcards_01.surge.sh/).
 
 
 ## Resources
