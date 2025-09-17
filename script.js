@@ -104,7 +104,7 @@ const renderBoard = () => {
 //Handles flipping cards and checking matches, Check if cards match, flips the card face-up when clicked, if it's the first card it just saves it and wait for the second. When the second card is flipped (increments the mover counter,locks the board while checking if they match, if they match they stay flipped, if they don't match flips them back after 800ms)
 //classList gives you a special object that lets you add, remove, or toggle those classes easily.
 const flipCard = (fc, card) => {
-  if (locked || el.classList.contains("is-flipped")) return
+  if (locked || fc.classList.contains("is-flipped")) return
 
   startTimer()
   fc.classList.add("is-flipped")
@@ -126,8 +126,8 @@ const flipCard = (fc, card) => {
     if (matches === IMAGES.length) winGame()
   } else {
     setTimeout(() => {
-      firstCard.el.classList.remove("is-flipped")
-      secondCard.el.classList.remove("is-flipped")
+      firstCard.fc.classList.remove("is-flipped")
+      secondCard.fc.classList.remove("is-flipped")
       resetTurn()
     }, 800)
   }
