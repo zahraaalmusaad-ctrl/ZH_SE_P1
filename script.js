@@ -1,3 +1,4 @@
+//An array of all images we are using as cards. Each image will appear twice in the game. We store them in one place so we can easily change or add images later.
 const IMAGES = [
   "Images/Carrot.png",
   "Images/Corn.png",
@@ -14,13 +15,13 @@ const IMAGES = [
 ]
 
 //Grab references to important elements on the page
-const board = document.getElementById("board")
-const movesEl = document.getElementById("moves")
-const pairsEl = document.getElementById("pairs")
-const matchesEl = document.getElementById("matches")
-const timerEl = document.getElementById("timer")
-const restartBtn = document.getElementById("restart")
-const messageEl = document.getElementById("message")
+const board = document.getElementById("board") //The game grid where cards appear
+const movesEl = document.getElementById("moves") //Shows the number of moves player've made
+const pairsEl = document.getElementById("pairs") //Total pairs in the game(12)
+const matchesEl = document.getElementById("matches") //How many pairs player've found so far
+const timerEl = document.getElementById("timer") //Shows the timer (MM:SS) format
+const restartBtn = document.getElementById("restart") //Button that restarts the game
+const messageEl = document.getElementById("message") //Small text massage
 
 //Game state variables
 let deck = [] //The array of card objects
@@ -32,7 +33,7 @@ let seconds = 0 //Timer second
 let timer = null
 let locked = false //Lock the board while checking matches
 
-//Shuffle function to randomize the cards
+//Shuffle function to randomize the cards. This makes sure every time player start the game, cards are in different order
 const shuffle = (arr) => arr.sort(() => Math.random() - 0.5)
 
 //Start the timer (called on first flip)
@@ -46,7 +47,7 @@ const startTimer = () => {
   }, 1000)
 }
 
-//Stops and clear the timer
+//Stops and clear the timer when the game ends or restart
 const stopTimer = () => {
   clearInterval(timer)
   timer = null
@@ -56,50 +57,68 @@ const stopTimer = () => {
 const makeDeck = () => {
   let cards = []
   IMAGES.forEach((img, i) => {
-    cards.push({ id: `${i}a`, img, pair: i })
-    cards.push({ id: `${i}b`, img, pair: i })
+    cards.push({ id: `${i}a`, img, pair: i }) //id is unique identifier to track individual cards
+    cards.push({ id: `${i}b`, img, pair: i }) //Pair: a number so we know which two cards match
   })
   return shuffle(cards)
 }
 
-//Draws the cards on the board(DOM elements)
+//Create the cards on the board every time the game starts or resets (DOM elements)
 const renderBoard = () => {
-  board.innerHTML = ""
+  board.innerHTML = "" //board is the <section id="board"></section> element in HTML,innerHTML = "" removes everything inside it, so we start fresh each time.
+  //deck ia an array with all the card objects(each has an img and an id), index is its position in the deck
   deck.forEach((card, index) => {
+    // make a card div to represent the card
     const cardEl = document.createElement("div")
-    cardEl.className = "card"
-    cardEl.dataset.index = index
+    cardEl.classList.add("card")
+    cardEl.dataset.index = index //dataset.index: to track which card was clicked later
 
-    cardEl.innerHTML = `
-      <div class="card-inner">
-        <div class="card-face card-front">?</div>
-        <div class="card-face card-back"><img src="${card.img}" alt=""></div>
-      </div>
-    `
-    //Add click event to flip the card
+    //Makes a container inside the card that will hold both the front and back
+    const inner = document.createElement("div")
+    inner.classList.add("card-inner")
+
+    const front = document.createElement("div")
+    front.classList.add("card-face", "card-front")
+    front.textContent = "?"
+
+    const back = document.createElement("div")
+    back.classList.add("card-face", "card-back") //create the back face of the card
+
+    const img = document.createElement("img") //create <img> tag and sets its src to the card's image file
+    img.src = card.img
+    img.alt = ""
+
+    back.appendChild(img) //Puts the <img> inside the back face
+    inner.appendChild(front) //Puts the front and back inside the container
+    inner.appendChild(back)
+    cardEl.appendChild(inner) //Puts the inner container inside the main card
+
+    // flip when clicked
     cardEl.addEventListener("click", () => flipCard(cardEl, card))
+
+    // put card on the board
     board.appendChild(cardEl)
   })
 }
 
-//Handles flipping cards and checking matches
-const flipCard = (el, card) => {
+//Handles flipping cards and checking matches, Check if cards match, flips the card face-up when clicked, if it's the first card it just saves it and wait for the second. When the second card is flipped (increments the mover counter,locks the board while checking if they match, if they match they stay flipped, if they don't match flips them back after 800ms)
+//classList gives you a special object that lets you add, remove, or toggle those classes easily.
+const flipCard = (fc, card) => {
   if (locked || el.classList.contains("is-flipped")) return
 
   startTimer()
-  el.classList.add("is-flipped")
+  fc.classList.add("is-flipped")
 
   if (!firstCard) {
-    firstCard = { el, card }
+    firstCard = { fc, card }
     return
   }
 
-  secondCard = { el, card }
+  secondCard = { fc, card }
   moves++
   movesEl.textContent = moves
   locked = true
 
-  //Check if cards match
   if (firstCard.card.pair === secondCard.card.pair) {
     matches++
     matchesEl.textContent = matches
@@ -114,13 +133,13 @@ const flipCard = (el, card) => {
   }
 }
 
-//Resets the selected cards and unlock the board
+//Resets the selected cards so the player can pick new ones
 const resetTurn = () => {
   ;[firstCard, secondCard] = [null, null]
   locked = false
 }
 
-//Called when all matches are found
+//Called when all matches are found, Stop the timer and display the massage you won
 const winGame = () => {
   stopTimer()
   messageEl.textContent = `You won! 🎉 Moves: ${moves}, Time: ${timerEl.textContent}`
