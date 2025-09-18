@@ -26,6 +26,16 @@ First, the user will see the main page, which contains the title of the game and
 3. JavaScript
 ```
 
+### Live demo link
+[Memory flashcards game](https://memoryflashcards_01.surge.sh/)
+
+
+### Future features
+```markdown
+1. Adding more levels
+2. Adding Audio
+3. Adding additional Function that enhance the game and user experience
+```
 
 ### The Game
 

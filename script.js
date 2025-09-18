@@ -53,10 +53,11 @@ const stopTimer = () => {
   timer = null
 }
 
-//Creates a shuffled dick with pairs
+//Creates a complete deck of cards for the memory game.
 const makeDeck = () => {
-  let cards = []
+  let cards = [] //Creates an empty array named cards.This will store all the card objects that make up the deck.
   IMAGES.forEach((img, i) => {
+    //Loops through every image in the IMAGES array. img → The actual image file path (e.g. "Images/Carrot.png").i → The index of the image in the array (e.g. 0, 1, 2 …). cards.push Adds a new object into the cards array.
     cards.push({ id: `${i}a`, img, pair: i }) //id is unique identifier to track individual cards
     cards.push({ id: `${i}b`, img, pair: i }) //Pair: a number so we know which two cards match
   })
